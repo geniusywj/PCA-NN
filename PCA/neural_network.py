@@ -1,8 +1,10 @@
 import tensorflow as tf
 import PCAtest as pca
 import numpy as np
-x_train = np.array(pca.label_encoded_array)
-y_train = pca.feature_array
+
+SAMPLE_SIZE = pca.SAMPLE_SIZE
+x_train = pca.feature_array
+y_train = np.array(pca.label_encoded_array).reshape(SAMPLE_SIZE,1)
 
 x_test = x_train
 y_test = y_train
@@ -11,7 +13,7 @@ model = tf.keras.models.Sequential([
   tf.keras.layers.Flatten(),
   tf.keras.layers.Dense(512, activation=tf.nn.relu),
   tf.keras.layers.Dropout(0.2),
-  tf.keras.layers.Dense(2, activation=tf.nn.softmax)
+  tf.keras.layers.Dense(12, activation=tf.nn.softmax)
 ])
 model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
